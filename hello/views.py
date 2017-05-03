@@ -25,12 +25,12 @@ def getHistoryStock(request):
 def getRealStock(request):
     id = request.GET.get('id')
     df = ts.get_realtime_quotes(id)
-    df = df.to_json(orient='index')
+    df = df.to_json(orient='records')
     return HttpResponse(simplejson.dumps(df, ensure_ascii=False))
 
 def getTodayStock(request):
     id = request.GET.get('id')
     df = ts.get_today_ticks(id)
     df = df[::-1]
-    df = df.to_json(orient='index')
+    df = df.to_json(orient='records')
     return HttpResponse(simplejson.dumps(df, ensure_ascii=False))
