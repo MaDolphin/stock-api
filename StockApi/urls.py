@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from hello.views import hello, getHistoryStock, getRealStock, getTodayStock
+from hello.views import hello, getHistoryStock, getRealStock, getTodayStock, getTodayDateStock
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^history_data/$', getHistoryStock),
     url(r'^real_tick/$', getRealStock),
     url(r'^today_tick/$', getTodayStock),
+    url(r'^todaydate_tick/$', getTodayDateStock)
 ]

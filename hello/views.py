@@ -17,7 +17,7 @@ def hello(request):
 def getHistoryStock(request):
     id = request.GET.get('id')
     date = time.strftime('%Y-%m-%d', time.localtime(time.time()))
-    df = ts.get_hist_data(id, start='2017-03-05', end=date)
+    df = ts.get_hist_data(id, start='2014-01-05', end=date)
     df = df[::-1]
     df = df.to_json(orient='index')
     return HttpResponse(simplejson.dumps(df, ensure_ascii=False))
@@ -31,7 +31,15 @@ def getRealStock(request):
 def getTodayStock(request):
     id = request.GET.get('id')
     df = ts.get_today_ticks(id)
-    # df = ts.get_tick_data('600000',date='2017-05-09')
+    df = df[::-1]
+    df = df.to_json(orient='index')
+    return HttpResponse(simplejson.dumps(df, ensure_ascii=False))
+
+def getTodayDateStock(request):
+    id = request.GET.get('id')
+    date = request.GET.get('date')
+    df = ts.get_tick_data(id,date=date)
+    df = df[['time', 'price', 'volume', 'amount', 'type']]
     df = df[::-1]
     df = df.to_json(orient='index')
     return HttpResponse(simplejson.dumps(df, ensure_ascii=False))
